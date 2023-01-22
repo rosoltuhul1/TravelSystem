@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>SoftwareProject</groupId>
+  <artifactId>AMS</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+     <maven.compiler.source>11</maven.compiler.source>
+     <maven.compiler.target>11</maven.compiler.target>
+     
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+</properties>
+  
+   <dependencies>
+  
+  <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+
+ <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+<dependency>
+    <groupId>org.sonarsource.scanner.maven</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version>3.9.1.2184</version>
+</dependency>
+
+  
+  <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.1</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+<groupId>io.cucumber</groupId>
+<artifactId>cucumber-picocontainer</artifactId>
+<version>7.3.4</version>
+<scope>test</scope>
+</dependency>
+
+<dependency>
+<groupId>io.cucumber</groupId>
+<artifactId>cucumber-java</artifactId>
+<version>7.3.4</version>
+</dependency>
+
+<dependency>
+<groupId>io.cucumber</groupId>
+<artifactId>cucumber-core</artifactId>
+<version>7.3.4</version>
+</dependency>
+
+
+<dependency>
+<groupId>io.cucumber</groupId>
+<artifactId>cucumber-junit</artifactId>
+<version>7.3.4</version>
+<scope>test</scope>
+</dependency>
+
+
+<dependency>
+ <groupId>org.seleniumhq.selenium</groupId>
+ <artifactId>selenium-java</artifactId>
+ <version>2.47.1</version>
+</dependency>
+
+
+
+
+
+  </dependencies>
+  
+
+<build>
+<sourceDirectory>src/main/java</sourceDirectory>
+<testSourceDirectory>src/test/java</testSourceDirectory>
+  <pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
+      </plugin>
+    </plugins>
+  </pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.3</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+
+							<dataFile>target/jacoco.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>target/my-reports</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<systemPropertyVariables>
+						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

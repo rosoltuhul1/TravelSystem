@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="28" time="1.005">
+<testcase classname="Admin login" name="Admin can login" time="0.083">
+<system-out><![CDATA[Given that the admin is not logged in.......................................passed
+And the password is "adminadmin"............................................passed
+Then the admin login succeeds...............................................passed
+And the admin is logged in..................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Admin login" name="Admin has the wrong password" time="0.002">
+<system-out><![CDATA[Given that the admin is not logged in.......................................passed
+And the password is "adminxyz"..............................................passed
+Then the admin login fails..................................................passed
+And the admin is not logged in..............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Admin logout" name="Admin logs out" time="0.002">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+When the admin logs out.....................................................passed
+Then the admin is not logged in.............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="register trip" name="unregistered user" time="0.01">
+<system-out><![CDATA[Given these usere registered in the touristSystem...........................passed
+And these trips contained in the touristSystem..............................passed
+And these trips fullregistered..............................................passed
+Given there is a user has ID "2984754" , name "Ahmad" , email "ahm@gmail.com" , address "Nablus street" ,postal code "H3H2T5" , and city "Nablus".passed
+And there is a trip with destination " Palestine " , airportNOW "Casablanka " and tripID "T1".passed
+When the user tries to register this trip...................................passed
+Then error massage "This user is not registered" should display.............passed
+]]></system-out>
+</testcase>
+<testcase classname="register trip" name="unavailable trip" time="0.002">
+<system-out><![CDATA[Given these usere registered in the touristSystem...........................passed
+And these trips contained in the touristSystem..............................passed
+And these trips fullregistered..............................................passed
+Given there is a user has ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus".passed
+And there is a trip with destination " Pakistan " , airportNOW "Casablanka " and tripID "T55".passed
+When the user tries to register this trip...................................passed
+Then error massage "This trip is not available in the touristSystem" should display.passed
+]]></system-out>
+</testcase>
+<testcase classname="register trip" name="available trips but fullRegistered" time="0.002">
+<system-out><![CDATA[Given these usere registered in the touristSystem...........................passed
+And these trips contained in the touristSystem..............................passed
+And these trips fullregistered..............................................passed
+Given there is a user has ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus".passed
+And there is a trip with destination " Palestine " , airportNOW "Casablanka " and tripID "T1".passed
+And the trip is fullRegistered..............................................passed
+When the user tries to register this trip...................................passed
+Then error massage "you cant register this trip because it is fullRegistered" should display.passed
+]]></system-out>
+</testcase>
+<testcase classname="register trip" name="successful register" time="0.002">
+<system-out><![CDATA[Given these usere registered in the touristSystem...........................passed
+And these trips contained in the touristSystem..............................passed
+And these trips fullregistered..............................................passed
+Given there is a user has ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus".passed
+And there is a trip with destination " Chicago " , airportNOW "Heathrow " and tripID "T2".passed
+And the trip is not fullRegistered..........................................passed
+When the user tries to register this trip...................................passed
+Then the regestering should success.........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="register trip" name="user tries to register more than maximum trips" time="0.002">
+<system-out><![CDATA[Given these usere registered in the touristSystem...........................passed
+And these trips contained in the touristSystem..............................passed
+And these trips fullregistered..............................................passed
+Given there is a user has ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus".passed
+And this user has registered maximum trips..................................passed
+And there is a trip with destination " Mildive " , airportNOW " Cairo" and tripID "T4".passed
+When the user tries to register this trip...................................passed
+Then error massage "you cant register this trip you have registered maximum trips" should display.passed
+]]></system-out>
+</testcase>
+<testcase classname="register trip" name="User cannot register trips if he has late trips" time="0.007">
+<system-out><![CDATA[Given these usere registered in the touristSystem...........................passed
+And these trips contained in the touristSystem..............................passed
+And these trips fullregistered..............................................passed
+Given a trip with tripID "xyz" is in the touristSystem......................passed
+And trip with tripID "T99" is in the touristSystem..........................passed
+And there is a user has ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus".passed
+When the user registers the trip with tripID "T99"..........................passed
+And 21 day have passed......................................................passed
+And the user register the trip with tripID "xyz"............................passed
+Then the trip with tripID "xyz" is not register by the user.................passed
+And error massage "you can't register any new trip because you have an overdue trips" is given.passed
+]]></system-out>
+</testcase>
+<testcase classname="Searching for trips based on destination,airportNOW or tripID" name="Searching for a trip by the tripID" time="0.017">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these trips are contained in the touristOffice..........................passed
+And the admin logs out......................................................passed
+Given that the admin is not logged in.......................................passed
+When the user searches for the text "1".....................................passed
+Then the trip with tripID "T1" is found.....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Searching for trips based on destination,airportNOW or tripID" name="Searching for a trip by the destination" time="0.002">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these trips are contained in the touristOffice..........................passed
+And the admin logs out......................................................passed
+Given that the admin is not logged in.......................................passed
+When the user searches for the text "P".....................................passed
+Then the trip with tripID "T1" is found.....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Searching for trips based on destination,airportNOW or tripID" name="Searching for a trip by the airportNOW" time="0.005">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these trips are contained in the touristOffice..........................passed
+And the admin logs out......................................................passed
+Given that the admin is not logged in.......................................passed
+When the user searches for the text "Jo"....................................passed
+Then the trip with tripID "T3" is found.....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Searching for trips based on destination,airportNOW or tripID" name="Searching  when the admin is logged in" time="0.004">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these trips are contained in the touristOffice..........................passed
+And the admin logs out......................................................passed
+Given that the admin is logged in...........................................passed
+When the user searches for the text "2".....................................passed
+Then the trip with tripID "T2" is found.....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Searching for trips based on destination,airportNOW or tripID" name="No trips found" time="0.015">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these trips are contained in the touristOffice..........................passed
+And the admin logs out......................................................passed
+When the user searches for the text "India".................................passed
+Then no trips are found.....................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Searching for trips based on destination,airportNOW or tripID" name="Find more than one trip" time="0.004">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these trips are contained in the touristOffice..........................passed
+And the admin logs out......................................................passed
+When the user searches for the text "Ca"....................................passed
+Then the trips with tripID "T1" and "T4" are found..........................passed
+]]></system-out>
+</testcase>
+<testcase classname="Unregister user" name="successful unregister" time="0.004">
+<system-out><![CDATA[Given a user with ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus" id registered in the touristSystem.passed
+And admin is logged in......................................................passed
+When try to unregister the user.............................................passed
+Then the user is out of the touristSystem...................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Unregister user" name="user has registered trips" time="0.002">
+<system-out><![CDATA[Given a user with ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus" id registered in the touristSystem.passed
+And admin is logged in......................................................passed
+And user has registered trip................................................passed
+When try to unregister the user.............................................passed
+Then the user sould still in the touristSystem..............................passed
+]]></system-out>
+</testcase>
+<testcase classname="Unregister user" name="user has fine unpaid" time="0.001">
+<system-out><![CDATA[Given a user with ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus" id registered in the touristSystem.passed
+And admin is logged in......................................................passed
+And user has fine unpaid....................................................passed
+When try to unregister the user.............................................passed
+Then the user sould still in the touristSystem..............................passed
+]]></system-out>
+</testcase>
+<testcase classname="Register user" name="Admin is not logged in" time="0.005">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these usere are registered in the touristOffice.........................passed
+And the admin logs out......................................................passed
+Given that the admin is not logged in.......................................passed
+And there is a user with ID "2984754" , name "Ahmad" , email "ahm@gmail.com" , address "Nablus street" ,postal code "H3H2T5" , and city "Nablus".passed
+When admin tries to register a user.........................................passed
+Then an error massage "Admin login is required" should display..............passed
+]]></system-out>
+</testcase>
+<testcase classname="Register user" name="user is already registered" time="0.002">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these usere are registered in the touristOffice.........................passed
+And the admin logs out......................................................passed
+Given that the admin is logged in...........................................passed
+And there is a user with ID "1234567" , name "Rosol" , email "rosol@gmail.com" , address "Rr street" ,postal code "H3H2T5" , and city "Nablus".passed
+When admin tries to register a user.........................................passed
+Then an error massage "user is alreay registered" should display............passed
+]]></system-out>
+</testcase>
+<testcase classname="Register user" name="user not registered before" time="0.002">
+<system-out><![CDATA[Given that the admin is logged in...........................................passed
+And these usere are registered in the touristOffice.........................passed
+And the admin logs out......................................................passed
+Given that the admin is logged in...........................................passed
+And there is a user with ID "2984754" , name "Ahmad" , email "ahm@gmail.com" , address "Nablus street" ,postal code "H3H2T5" , and city "Nablus".passed
+When admin tries to register a user.........................................passed
+Then an information message "user registered succefully" should displayed...passed
+]]></system-out>
+</testcase>
+<testcase classname="Add trip to the touristSystem" name="Add a trip tothe touristSystem" time="0.004">
+<system-out><![CDATA[Given that the administrator is logged in...................................passed
+And there is a trip with destination "Maldive", airportNOW "Cairo", and tripID "T4".passed
+When the trip is added to the touristSystem.................................passed
+Then the trip with destination "Maldive", airportNOW "Cairo", and tripID "T4" is contained in the touristSystem.passed
+]]></system-out>
+</testcase>
+<testcase classname="Add trip to the touristSystem" name="Add a trip when the adminstrator is not logged in" time="0.003">
+<system-out><![CDATA[Given that the administrator is not logged in...............................passed
+And there is a trip with destination "Italy", airportNOW "Casablanca", and tripID "T7".passed
+When the trip is added to the touristSystem.................................passed
+Then the error message "Administrator login required" is given..............passed
+]]></system-out>
+</testcase>
+<testcase classname="Add Trip" name="Admin adds a new trip" time="0.001">
+<system-out><![CDATA[Given the Admin is logged into the system...................................passed
+When the Admin invokes the "Add Trip" function..............................passed
+Then the Admin should be prompted to enter the trip details.................passed
+And the Admin should be able to enter the trip details......................passed
+And the Admin should be able to submit the trip details.....................passed
+Then the new trip should be added to the system.............................passed
+]]></system-out>
+</testcase>
+<testcase classname="Late Trip" name="Late Trip after 21 days" time="0.001">
+<system-out><![CDATA[Given the user has registered a Trip........................................passed
+And 21 days have passed.....................................................passed
+And the fine for one late Trip is 30 NIS....................................passed
+Then the user has Late Trips................................................passed
+And the user has to pay a fine of 30 NIS....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="returning  trips for touristSystem after registering it based on destination,airportNOW or tripID" name="for  successful return" time="0.003">
+<system-out><![CDATA[Given there is a user ID "1234567" ,name "Rosol" ,email "rosol@gmail.com" ,address "Rr street" ,postal code "H3H2T5" ,and city "Nablus".passed
+And there is a trip with destination " Palestine " ,airportNOW "Casablanka ",and tripID "T1".passed
+And user is registered in touristSystem.....................................passed
+And the user has registered this trip.......................................passed
+When action (return) happens................................................passed
+Then the trip not be registered.............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="returning  trips for touristSystem after registering it based on destination,airportNOW or tripID" name="user return a trip that not registered by this user" time="0.002">
+<system-out><![CDATA[Given there is a user ID "1234567" ,name "Rosol" ,email "rosol@gmail.com" ,address "Rr street" ,postal code "H3H2T5" ,and city "Nablus".passed
+And there is a trip with destination " Palestine " ,airportNOW "Casablanka ",and tripID "T1".passed
+And user is registered in touristSystem.....................................passed
+When action (return) happens................................................passed
+Then error message should  display "this trip is not registered by you".....passed
+]]></system-out>
+</testcase>
+<testcase classname="returning  trips for touristSystem after registering it based on destination,airportNOW or tripID" name="user not registered" time="0.001">
+<system-out><![CDATA[Given there is a user ID "2984754" ,name "Ahmad" ,email "ahm@gmail.com" ,address "Nablus street" ,postal code "H3H1T5" ,and city "Nablus".passed
+When action (return) happens................................................passed
+Then error message should  display "this user is not registered"............passed
+]]></system-out>
+</testcase>
+</testsuite>
